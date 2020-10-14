@@ -11,8 +11,8 @@ stages:
         go build -o bin/hello-server
         go test -cover
     env:
+      GO111MODULE: "on"
       GOPROXY: https://goproxy.io
-      GO111MODULE: on
 - name: Publish
   steps:
   - publishImageConfig:
@@ -23,4 +23,9 @@ stages:
   steps:
   - applyYamlConfig:
       path: ./deployment.yaml
-notification: {}
+notification:
+  recipients:
+  - recipient: http://go.online.njtech.edu.cn/pushover/webhook
+    notifier: c-4gxfm:n-hn6zj
+  condition:
+  - Success
