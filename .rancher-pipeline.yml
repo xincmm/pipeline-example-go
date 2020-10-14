@@ -12,6 +12,7 @@ stages:
         go test -cover
     env:
       GOPROXY: https://goproxy.io
+      GO111MODULE: on
 - name: Publish
   steps:
   - publishImageConfig:
