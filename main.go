@@ -11,20 +11,9 @@ func main() {
 	log.SetOutput(os.Stdout)
 	r := gin.Default()
 
+	log.Print(os.Getenv("MODE"))
+
 	r.GET("/", func(c *gin.Context) {
-		log.Print("测试西亚")
-
-		f, err := os.OpenFile("/go/src/main.log",
-			os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
-		if err != nil {
-			log.Println(err)
-		}
-		defer f.Close()
-
-		logger := log.New(f, "prefix", log.LstdFlags)
-		logger.Println("text to append")
-		logger.Println("more text to append")
-
 		c.JSON(200, gin.H{
 			"message": "pong",
 		})
