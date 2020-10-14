@@ -11,7 +11,7 @@ func main() {
 	log.SetOutput(os.Stdout)
 	r := gin.Default()
 
-	r.GET("/ping", func(c *gin.Context) {
+	r.GET("/", func(c *gin.Context) {
 		log.Print("测试西亚")
 
 		f, err := os.OpenFile("/go/src/main.log",
