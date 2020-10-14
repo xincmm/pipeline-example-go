@@ -9,6 +9,8 @@ stages:
         cd /go/src/github.com/rancher/pipeline-example-go
         go build -o bin/hello-server
         go test -cover
+    env:
+      GOPROXY: https://goproxy.io
 - name: Publish
   steps:
   - publishImageConfig:
@@ -19,3 +21,4 @@ stages:
   steps:
   - applyYamlConfig:
       path: ./deployment.yaml
+notification: {}
