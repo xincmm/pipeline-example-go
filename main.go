@@ -1,18 +1,25 @@
 package main
 
 import (
-	"fmt"
-	"net/http"
-	"log"
+	"github.com/gin-gonic/gin"
+	"io/ioutil"
 )
 
-const webContent = "Hello World，best rancher!"
-
 func main() {
-	http.HandleFunc("/", helloHandler)
-	log.Fatal(http.ListenAndServe(":80", nil))
-}
+	r := gin.Default()
+	r.GET("/ping", func(c *gin.Context) {
+		println("Hello Rancher")
+		c.JSON(200, gin.H{
+			"message": "pong",
+		})
+	})
 
-func helloHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprint(w, webContent)
+	r.POST("/pushover/webhook", func(c *gin.Context) {
+		body, _ := ioutil.ReadAll(c.Request.Body)
+		println(string(body))
+		c.JSON(200, gin.H{
+			"message": string(body),
+		})
+	})
+	_ = r.Run(":80")
 }
