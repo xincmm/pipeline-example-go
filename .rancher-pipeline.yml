@@ -10,6 +10,8 @@ stages:
         go mod download
         go build -o bin/hello-server
         go test -cover
+    env:
+      GOPROXY: https://goproxy.io
 - name: Publish
   steps:
   - publishImageConfig:
@@ -20,3 +22,4 @@ stages:
   steps:
   - applyYamlConfig:
       path: ./deployment.yaml
+notification: {}
